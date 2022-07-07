@@ -2,21 +2,28 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    es6: true,
     node: true,
+    'vue/setup-compiler-macros': true,
   },
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-strongly-recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier'
+    'plugin:prettier/recommended',
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
     parser: '@typescript-eslint/parser',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['vue', '@typescript-eslint', 'prettier'],
-  rules: {},
+  rules: {
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['index'],
+      },
+    ],
+  },
 }
