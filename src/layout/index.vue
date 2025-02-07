@@ -24,7 +24,7 @@ provide('collapsed', collapsed)
 provide('handleCollapse', handleCollapse)
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .layout {
   height: 100vh;
 }

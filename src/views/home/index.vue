@@ -1,8 +1,8 @@
 <template>
   <Container title="home" :breadcrumb="['home']">
-    <div style="height: 10000px;">
+    <Box>
       home
-    </div>
+    </Box>
   </Container>
 </template>
 
@@ -10,6 +10,6 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

@@ -6,6 +6,7 @@ import router from '@/router'
 import App from '@/App.vue'
 
 import Container from '@/components/Container/index.vue'
+import Box from '@/components/Box/index.vue'
 
 import 'normalize.css/normalize.css'
 import 'ant-design-vue/dist/reset.css'
@@ -15,6 +16,7 @@ const pinia = createPinia()
 const app = createApp(App)
 
 app.component('Container', Container)
+app.component('Box', Box)
 
 app.use(pinia)
 app.use(router)
