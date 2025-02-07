@@ -1,16 +1,31 @@
 <template>
-  <ElContainer>
-    <Header />
-    <ElContainer>
-      <Sidebar />
+  <ALayout class="layout">
+    <Sidebar />
+    <ALayout>
+     <Header />
       <Main />
-    </ElContainer>
-  </ElContainer>
+    </ALayout>
+  </ALayout>
 </template>
 
 <script setup lang="ts">
-import { ElContainer } from 'element-plus'
+import { ref, provide } from 'vue'
 import Header from './Header/index.vue'
 import Sidebar from './Sidebar/index.vue'
 import Main from './Main/index.vue'
+
+const collapsed = ref(false)
+
+const handleCollapse = (val: boolean) => {
+  collapsed.value = val
+}
+
+provide('collapsed', collapsed)
+provide('handleCollapse', handleCollapse)
 </script>
+
+<style lang="scss">
+.layout {
+  height: 100vh;
+}
+</style>

@@ -1,8 +1,13 @@
 <template>
-  <ALayoutContent>
-    <RouterView />
-  </ALayoutContent>
+  <div>
+    login
+  </div>
 </template>
 
 <script setup lang="ts">
+
 </script>
+
+<style scoped>
+
+</style>
