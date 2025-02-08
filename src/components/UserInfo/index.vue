@@ -1,18 +1,18 @@
 <template>
   <div class="user">
-    <AAvatar class="user__avatar" :src="userInfo.avatar" size="small" />
+    <AAvatar class="user__avatar" :src="userInfo.avatar || AvatarPng" size="small" />
     <ADropdown trigger="click">
-      <div class="user__info" :class="{ 'is-active': arrowFlag }" @click.prevent="handleUserClick">
+      <div class="user__info">
         <div class="user__content">
-          <p class="user__name">{{ userInfo.adminName || userInfo.name }}</p>
+          <p class="user__name">{{ userInfo.name || userInfo.username }}</p>
         </div>
-        <i class="user__arrow icon icon-jiantouxia-xiaohao" />
+        <DownOutlined class="user__arrow" />
       </div>
       <template #overlay>
         <AMenu class="user-menu">
           <AMenuItem class="user-menu__profile" style="cursor: auto" key="0" disabled>
-            <p class="user-menu__title">{{ userInfo.adminName || userInfo.name }}</p>
-            <p class="user-menu__email">邮箱：{{ userInfo.email }}</p>
+            <p class="user-menu__title">{{ userInfo.name || userInfo.username }}</p>
+            <p class="user-menu__email">邮箱：{{ userInfo.email || '暂无邮箱' }}</p>
           </AMenuItem>
 
           <AMenuDivider class="user-menu__divider" />
@@ -32,27 +32,26 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { UserOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LogoutOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/store/user'
+import type { IUserInfo } from '@/api'
+
+import AvatarPng from '@/assets/logo.png'
+
+const router = useRouter()
+const userStore = useUserStore()
+const userInfo = computed(() => userStore.userInfo as IUserInfo)
 
 const arrowFlag = ref(false)
-const userInfo = computed<any>(() => ({
-  name: '张三',
-  email: '1234567890@qq.com',
-  avatar: '../../assets/logo.png',
-}))
-
-const handleUserClick = () => {
-  arrowFlag.value = !arrowFlag.value
-}
-
 
 const handleUserConfigClick = () => {
-  handleUserClick()
 }
 
 // 退出登录
 const handleLogoutClick = () => {
-  handleUserClick()
+  userStore.logout()
+  router.push('/login')
 }
 </script>
 
@@ -87,13 +86,6 @@ const handleLogoutClick = () => {
     font-size: $font-size-base;
     color: $text-primary;
     line-height: 22px;
-  }
-
-  &__arrow {
-    width: 16px;
-    height: 16px;
-    font-weight: $font-weight-bold;
-    transition: $transition-base;
   }
 }
 

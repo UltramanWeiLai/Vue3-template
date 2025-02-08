@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build:test": "vite build --mode test",
+    "build:prod": "vite build --mode production",
+    "build:release": "vite build --mode release",
     "preview": "vite preview",
     "eslint": "eslint \"./src/**/*.{js,jsx,ts,tsx,vue}\"",
     "prettier": "prettier --write ./src/**/*.{js,jsx,ts,tsx,vue}"
