@@ -4,14 +4,33 @@ import { useUserStore } from '@/store/user'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    redirect: '/home',
     component: () => import('../layout/index.vue'),
     children: [
       {
-        path: '',
+        path: 'home',
         name: 'home',
+        meta: { title: '首页' },
         component: () => import('../views/home/index.vue')
-      }
-      // ... 其他子路由
+      },
+      {
+        path: 'user',
+        name: 'User',
+        meta: { title: '用户管理' },
+        component: () => import('../views/user/index.vue')
+      },
+      {
+        path: 'user-group',
+        name: 'UserGroup',
+        meta: { title: '用户组管理' },
+        component: () => import('../views/user-group/index.vue')
+      },
+      {
+        path: 'role',
+        name: 'Role',
+        meta: { title: '角色管理' },
+        component: () => import('../views/role/index.vue')
+      },
     ]
   },
   {
@@ -37,6 +56,28 @@ router.beforeEach((
   if (!userStore.token && !whiteList.includes(to.path)) return next('/login')
   if (userStore.token && to.path === '/login') return next('/')
   if (to.meta.title) document.title = to.meta.title as string
+
+  // 记录访问历史
+  if (userStore.token && to.name && !whiteList.includes(to.path)) {
+    const history = localStorage.getItem('visitHistory')
+    const visitHistory = history ? JSON.parse(history) : []
+    
+    const timestamp = Date.now()
+    const newRecord = { path: to.path, title: to.meta.title || to.name, timestamp }
+    
+    // 移除重复的记录
+    const filteredHistory = visitHistory.filter((item: any) => item.path !== to.path)
+    
+    // 添加新记录到开头
+    filteredHistory.unshift(newRecord)
+    
+    // 只保留最近5条记录
+    const updatedHistory = filteredHistory.slice(0, 5)
+    
+    // 保存到localStorage
+    localStorage.setItem('visitHistory', JSON.stringify(updatedHistory))
+  }
+
   next()
 })
 

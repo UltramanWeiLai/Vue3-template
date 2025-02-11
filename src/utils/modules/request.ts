@@ -1,7 +1,11 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { useUserStore } from '@/store/user'
 import { BASE_URL } from '@/utils'
+import { message } from 'ant-design-vue'
+
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { IRes } from '@/types'
+import router from '@/router'
 
 const request: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -20,11 +24,23 @@ request.interceptors.request.use(
 )
 
 request.interceptors.response.use(
-  <T>(response: AxiosResponse<T>): T => response.data,
+  (response: AxiosResponse) => {
+    const res = response.data as unknown as IRes
+
+    if (res.code >= 400) {
+      message.error(res.msg || '服务器繁忙，请稍后重试！')
+      if (res.code === 401) {
+        const userStore = useUserStore()
+        userStore.logout()
+        router.push('/login')
+      }
+    }
+    return response.data
+  },
   (error) => {
-    // 处理错误
-    debugger
-    return Promise.reject(error)
+    const res = error.response?.data as unknown as IRes || { msg: error.message || '服务器繁忙，请稍后重试！' }
+    message.error(res.msg)
+    return Promise.reject(res)
   }
 )
 

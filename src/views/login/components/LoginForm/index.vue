@@ -49,6 +49,7 @@ import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { useUserStore } from '@/store/user'
+import { getDataCache } from '@/utils'
 
 import { login } from '@/api'
 
@@ -60,19 +61,33 @@ interface FormState {
 
 const router = useRouter()
 const userStore = useUserStore()
+const cache = getDataCache()
 const emits = defineEmits(['switchMode'])
 
 const loading = ref(false)
 
 const formState = reactive<FormState>({
-  username: '',
-  password: '',
-  remember: false
+  username: cache.get('username') || '',
+  password: cache.get('password') || '',
+  remember: cache.get('remember') || false
 })
 
 const rules = {
   username: [{ required: true, message: '请输入用户名' }],
   password: [{ required: true, message: '请输入密码' }]
+}
+
+// 记住密码
+const handleRemember = () => {
+  if (formState.remember) {
+    cache.set('username', formState.username)
+    cache.set('password', formState.password)
+    cache.set('remember', formState.remember)
+  } else {
+    cache.delete('username')
+    cache.delete('password')
+    cache.delete('remember')
+  }
 }
 
 const handleFinish = async (values: FormState) => {
@@ -82,10 +97,9 @@ const handleFinish = async (values: FormState) => {
     const { token, userInfo } = res.data
     userStore.setToken(token)
     userStore.setUserInfo(userInfo)
+    handleRemember()
     message.success('登录成功')
     router.push('/')
-  } catch (error) {
-    message.error('登录失败')
   } finally {
     loading.value = false
   }

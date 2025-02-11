@@ -11,3 +11,8 @@ export interface IResList<T = []> {
   total: number
   data: T[]
 }
+
+export interface IPage {
+  currPage?: number
+  pageSize?: number
+}

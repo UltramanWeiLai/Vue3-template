@@ -18,58 +18,33 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, Ref } from 'vue';
+import { inject, ref, Ref, h } from 'vue'
+import { useRouter } from 'vue-router'
+import { UserOutlined } from '@ant-design/icons-vue'
 
+const router = useRouter()
 const collapsed = inject<Ref<boolean>>('collapsed')
 const openKeys = ref<string[]>([])
 const selectedKeys = ref<string[]>([])
 const menuList = ref([
+  { label: '首页', key: 'home', path: '/home' },
   {
-    key: '1',
-    label: 'Option 1',
-    title: 'Option 1',
-  },
-  {
-    key: '2',
-    label: 'Option 2',
-    title: 'Option 2',
-  },
-  {
-    key: '3',
-    label: 'Option 3',
-    title: 'Option 3',
-  },
-  {
-    key: 'sub1',
-    label: 'Navigation One',
-    title: 'Navigation One',
+    label: '系统管理',
+    key: 'system',
+    icon: h(UserOutlined),
     children: [
-      {
-        key: '5',
-        label: 'Option 5',
-        title: 'Option 5',
-      },
-      {
-        key: '6',
-        label: 'Option 6',
-        title: 'Option 6',
-      },
-      {
-        key: '7',
-        label: 'Option 7',
-        title: 'Option 7',
-      },
-      {
-        key: '8',
-        label: 'Option 8',
-        title: 'Option 8',
-      },
-    ],
-  }
+      { label: '用户管理', key: 'user', path: '/user' },
+      { label: '角色管理', key: 'role', path: '/role' },
+      { label: '权限管理', key: 'permission', path: '/permission' },
+      { label: '资源管理', key: 'resource', path: '/resource' },
+      { label: '用户组管理', key: 'user-group', path: '/user-group' }
+    ]
+  },
 ])
 
-const handleMenuClick = (e: { key: string }) => {
+const handleMenuClick = (e: { key: string, item: { path: string } }) => {
   selectedKeys.value = [e.key]
+  router.push(e.item.path)
 }
 </script>
 
