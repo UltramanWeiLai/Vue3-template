@@ -34,6 +34,7 @@ request.interceptors.response.use(
         userStore.logout()
         router.push('/login')
       }
+      return Promise.reject(res)
     }
     return response.data
   },

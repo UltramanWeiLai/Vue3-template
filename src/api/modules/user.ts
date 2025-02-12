@@ -16,8 +16,6 @@ export interface IUserInfo {
   phone?: string;
   avatar?: string;
   username: string
-  createTime: string
-  updateTime: string
   state: number
   feishu?: string
   roles?: IRoleInfo[]
@@ -25,6 +23,10 @@ export interface IUserInfo {
   groups?: IUserGroupInfo[]
   userRoleIds?: number[]
   userGroupRoleIds?: number[]
+  create?: string
+  createTime?: string
+  update?: string
+  updateTime?: string
 }
 
 export interface ILoginRes {

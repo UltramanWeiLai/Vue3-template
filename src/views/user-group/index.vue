@@ -8,7 +8,7 @@
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" @click="handleSearch">搜索</AButton>
-          <AButton @click="handleReset">重置</AButton>
+          <AButton class="ml12" @click="handleReset">重置</AButton>
         </AFormItem>
       </AForm>
     </Box>
@@ -201,10 +201,7 @@ const handleToggleState = async (record: IUserGroupInfo) => {
 
   .search-buttons {
     margin-left: auto;
-    
-    .ant-btn + .ant-btn {
-      margin-left: 8px;
-    }
+    margin-right: 0;
   }
 }
 

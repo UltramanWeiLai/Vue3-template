@@ -10,8 +10,10 @@ export interface IUserGroupInfo {
   role?: number[]
   user?: number[]
   state: number
-  createTime: string
-  updateTime: string
+  create?: string
+  createTime?: string
+  update?: string
+  updateTime?: string
 }
 
 export interface IUserGroupParams {

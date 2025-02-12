@@ -14,18 +14,20 @@ export enum PowerAction {
 export interface IPowerInfo {
   id: number
   name: string
-  resourceKey: string
   action: PowerAction
+  resourceKey: string
   description?: string
   state: number
-  create: string
-  createTime: string
-  update: string
-  updateTime: string
+  create?: string
+  createTime?: string
+  update?: string
+  updateTime?: string
 }
 
 export interface IPowerParams {
   name: string
+  action: PowerAction
+  resourceKey: string
   description?: string
 }
 

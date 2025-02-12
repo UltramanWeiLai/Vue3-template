@@ -11,7 +11,7 @@
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" @click="handleSearch">搜索</AButton>
-          <AButton @click="handleReset">重置</AButton>
+          <AButton class=ml12 @click="handleReset">重置</AButton>
         </AFormItem>
       </AForm>
     </Box>
@@ -46,7 +46,7 @@
                 type="link"
                 :tip="record.state === 1 ? '禁用' : '启用'"
                 :icon="record.state === 1 ? StopOutlined : CheckCircleOutlined"
-                @click="handleToggleStatus(record)"
+                @click="handleToggleState(record)"
               />
               <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
             </ASpace>
@@ -130,7 +130,7 @@ onMounted(() => {
   fetchUserList()
 })
 
-const handleToggleStatus = async (record: IUserInfo) => {
+const handleToggleState = async (record: IUserInfo) => {
   try {
     loading.value = true
     if (record.state === 1) {
@@ -212,10 +212,7 @@ const handleAssignGroup = (record: IUserInfo) => {
 
   .search-buttons {
     margin-left: auto;
-    
-    .ant-btn + .ant-btn {
-      margin-left: 8px;
-    }
+    margin-right: 0;
   }
 }
 

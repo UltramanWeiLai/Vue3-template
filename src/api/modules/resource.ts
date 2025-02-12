@@ -9,19 +9,21 @@ export interface IResourceInfo {
   key: string
   description?: string
   state: number
-  create: string
-  createTime: string
-  update: string
-  updateTime: string
+  create?: string
+  createTime?: string
+  update?: string
+  updateTime?: string
 }
 
 export interface IResourceParams {
   name: string
+  key: string
   description?: string
 }
 
 export interface IQueryResourcesParams extends IPage {
   name?: string
+  key?: string
 }
 
 // 创建资源

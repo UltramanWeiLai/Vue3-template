@@ -31,6 +31,18 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '角色管理' },
         component: () => import('../views/role/index.vue')
       },
+      {
+        path: 'power',
+        name: 'Power',
+        meta: { title: '权限管理' },
+        component: () => import('../views/power/index.vue')
+      },
+      {
+        path:'resource',
+        name: 'Resource',
+        meta: { title: '资源管理' },
+        component: () => import('../views/resource/index.vue')
+      },
     ]
   },
   {

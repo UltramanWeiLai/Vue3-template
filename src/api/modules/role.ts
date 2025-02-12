@@ -12,8 +12,10 @@ export interface IRoleInfo {
   powerIds?: number[]
   userGroupIds?: number[]
   state: number
-  createTime: string
-  updateTime: string
+  create?: string
+  createTime?: string
+  update?: string
+  updateTime?: string
 }
 
 export interface IRoleParams {

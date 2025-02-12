@@ -35,7 +35,7 @@ const menuList = ref([
     children: [
       { label: '用户管理', key: 'user', path: '/user' },
       { label: '角色管理', key: 'role', path: '/role' },
-      { label: '权限管理', key: 'permission', path: '/permission' },
+      { label: '权限管理', key: 'power', path: '/power' },
       { label: '资源管理', key: 'resource', path: '/resource' },
       { label: '用户组管理', key: 'user-group', path: '/user-group' }
     ]
