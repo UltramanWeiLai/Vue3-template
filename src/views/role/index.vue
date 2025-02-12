@@ -39,6 +39,7 @@
               <ActionButton type="link" tip="编辑" :icon="EditOutlined" @click="handleEdit(record)" />
               <ActionButton type="link" tip="分配权限" :icon="ControlOutlined" @click="handleAssignPower(record)" />
               <ActionButton type="link" tip="分配用户" :icon="UserOutlined" @click="handleAssignUser(record)" />
+              <ActionButton type="link" tip="分配用户组" :icon="UsergroupAddOutlined" @click="handleAssignUserGroup(record)" />
               <ActionButton
                 type="link"
                 :tip="record.state === 1 ? '禁用' : '启用'"
@@ -76,23 +77,32 @@
       @success="fetchRoleList"
     />
 
+    <!-- 用户组分配弹窗 -->
+    <AssignUserGroup
+      v-model:visible="userGroupVisible"
+      :role-id="currentRole?.id"
+      @success="fetchRoleList"
+    />
+
   </Container>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
-import { PlusOutlined, EditOutlined, DeleteOutlined, ControlOutlined, StopOutlined, CheckCircleOutlined, UserOutlined } from '@ant-design/icons-vue'
+import { PlusOutlined, EditOutlined, DeleteOutlined, ControlOutlined, StopOutlined, CheckCircleOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons-vue'
 import { IRoleInfo, queryRoles, deleteRole, enableRole, disableRole } from '@/api'
 
 import RoleModal from './components/RoleModal/index.vue'
 import AssignPower from './components/AssignPower/index.vue'
 import AssignUser from './components/AssignUser/index.vue'
+import AssignUserGroup from './components/AssignUserGroup/index.vue'
 
 // 弹窗控制
 const roleFormVisible = ref(false)
 const powerVisible = ref(false)
 const userVisible = ref(false)
+const userGroupVisible = ref(false)
 const currentRole = ref<IRoleInfo>()
 
 interface FormState {
@@ -172,6 +182,11 @@ const handleAssignPower = (record: IRoleInfo) => {
 const handleAssignUser = (record: IRoleInfo) => {
   currentRole.value = record
   userVisible.value = true
+}
+
+const handleAssignUserGroup = (record: IRoleInfo) => {
+  currentRole.value = record
+  userGroupVisible.value = true
 }
 
 const handleToggleStatus = async (record: IRoleInfo) => {

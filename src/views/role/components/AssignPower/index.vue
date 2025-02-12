@@ -3,6 +3,7 @@
     v-model:open="visible"
     title="分配权限"
     @ok="handleOk"
+    @cancel="handleCancel"
   >
     <ATree
       v-model:checkedKeys="checkedKeys"
@@ -16,7 +17,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { message } from 'ant-design-vue'
-import { updateRolePowers } from '@/api'
+import { setRolePowers } from '@/api'
 
 interface Props {
   visible: boolean
@@ -37,12 +38,17 @@ const handleOk = async () => {
   if (!props.roleId) return
   
   try {
-    await updateRolePowers(props.roleId, checkedKeys.value)
+    await setRolePowers(props.roleId, checkedKeys.value)
     message.success('分配权限成功')
+    handleCancel()
     emits('success')
-    emits('update:visible', false)
   } catch (error) {
     message.error('分配权限失败')
   }
+}
+
+const handleCancel = () => {
+  checkedKeys.value = []
+  visible.value = false
 }
 </script>

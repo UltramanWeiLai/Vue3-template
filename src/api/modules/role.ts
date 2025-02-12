@@ -10,6 +10,7 @@ export interface IRoleInfo {
   description?: string
   userIds?: number[]
   powerIds?: number[]
+  userGroupIds?: number[]
   state: number
   createTime: string
   updateTime: string
@@ -62,12 +63,16 @@ export async function disableRole(id: number) {
 }
 
 // 修改角色权限
-export async function updateRolePowers(id: number, power: number[]) {
+export async function setRolePowers(id: number, power: number[]) {
   return request.patch<IRes>(`/api/role/power/${id}`, { power })
 }
 
 // 修改角色用户
-export async function updateRoleUsers(id: number, user: number[]) {
+export async function setRoleUsers(id: number, user: number[]) {
   return request.patch<IRes>(`/api/role/user/${id}`, { user })
 }
 
+// 修改角色用户组
+export async function setRoleUserGroups(id: number, group: number[]) {
+  return request.patch<IRes>(`/api/role/userGroup/${id}`, { group })
+}
