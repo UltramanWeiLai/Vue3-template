@@ -34,7 +34,10 @@
               {{ record.state === 1 ? '启用' : '禁用' }}
             </ATag>
           </template>
-          <template v-else-if="column.dataIndex === 'action'">
+          <template v-else-if="['createTime', 'updateTime'].includes(column.dataIndex)">
+            {{ formatTime(record[column.dataIndex]) }}
+          </template>
+          <template v-else-if="column.dataIndex === 'operate'">
             <ASpace :size="0">
               <ActionButton type="link" tip="编辑" :icon="EditOutlined" @click="handleEdit(record)" />
               <ActionButton
@@ -46,6 +49,7 @@
               <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
             </ASpace>
           </template>
+          <template v-else>{{ record[column.dataIndex] || '-' }}</template>
         </template>
       </ATable>
     </Box>
@@ -65,6 +69,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
 import { EditOutlined, DeleteOutlined, StopOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 import { queryPowers, deletePower, enablePower, disablePower } from '@/api'
+import { formatTime } from '@/utils'
 import type { IPowerInfo } from '@/api'
 
 import PowerModal from './components/PowerModal/index.vue'
@@ -80,7 +85,7 @@ const columns = [
   { title: '创建时间', dataIndex: 'createTime' },
   { title: '更新人', dataIndex: 'update' },
   { title: '更新时间', dataIndex: 'updateTime' },
-  { title: '操作', dataIndex: 'action', width: 280 }
+  { title: '操作', dataIndex: 'operate', width: 130 }
 ]
 
 const loading = ref(false)

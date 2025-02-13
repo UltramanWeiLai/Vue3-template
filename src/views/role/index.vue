@@ -34,6 +34,9 @@
               {{ record.state === 1 ? '启用' : '禁用' }}
             </ATag>
           </template>
+          <template v-else-if="['createTime', 'updateTime'].includes(column.dataIndex)">
+            {{ formatTime(record[column.dataIndex]) }}
+          </template>
           <template v-else-if="column.dataIndex === 'action'">
             <ASpace :size="0">
               <ActionButton type="link" tip="编辑" :icon="EditOutlined" @click="handleEdit(record)" />
@@ -92,6 +95,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
 import { PlusOutlined, EditOutlined, DeleteOutlined, ControlOutlined, StopOutlined, CheckCircleOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons-vue'
 import { IRoleInfo, queryRoles, deleteRole, enableRole, disableRole } from '@/api'
+import { formatTime } from '@/utils'
 
 import RoleModal from './components/RoleModal/index.vue'
 import AssignPower from './components/AssignPower/index.vue'
@@ -118,7 +122,10 @@ const columns = [
   { title: '角色名称', dataIndex: 'name' },
   { title: '描述', dataIndex: 'description' },
   { title: '状态', dataIndex: 'status' },
+  { title: '创建人', dataIndex: 'create' },
   { title: '创建时间', dataIndex: 'createTime' },
+  { title: '更新人', dataIndex: 'update' },
+  { title: '更新时间', dataIndex: 'updateTime' },
   { title: '操作', dataIndex: 'action', width: 140 }
 ]
 

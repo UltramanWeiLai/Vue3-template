@@ -34,6 +34,9 @@
               {{ record.state === 1 ? '启用' : '禁用' }}
             </ATag>
           </template>
+          <template v-else-if="['createTime', 'updateTime'].includes(column.dataIndex)">
+            {{ formatTime(record[column.dataIndex]) }}
+          </template>
           <template v-else-if="column.dataIndex === 'action'">
             <ASpace :size="0">
               <ActionButton type="link" tip="编辑" :icon="EditOutlined" @click="handleEdit(record)" />
@@ -46,6 +49,7 @@
               <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
             </ASpace>
           </template>
+          <template v-else>{{ record[column.dataIndex] || '-' }}</template>
         </template>
       </ATable>
     </Box>
@@ -65,6 +69,7 @@ import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
 import { PlusOutlined, EditOutlined, DeleteOutlined, StopOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 import { queryResources, deleteResource, enableResource, disableResource } from '@/api'
+import { formatTime } from '@/utils'
 import type { IResourceInfo } from '@/api'
 
 import ResourceForm from './components/ResourceModal/index.vue'

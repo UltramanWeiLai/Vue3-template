@@ -19,33 +19,22 @@
       <AFormItem label="操作类型" name="action">
         <ASelect
           v-model:value="formData.action"
-          placeholder="请选择操作类型"
+          :options="actionOptions"
           allowClear
-        >
-          <ASelectOption
-            v-for="item in actionOptions"
-            :key="item.value"
-            :value="item.value"
-          >
-            {{ item.label }}
-          </ASelectOption>
-        </ASelect>
+          placeholder="请选择操作类型"
+        />
       </AFormItem>
       <AFormItem label="资源" name="resourceKey">
         <ASelect
           v-model:value="formData.resourceKey"
-          placeholder="请选择资源"
-          allowClear
+          :options="resourceList"
           :loading="resourceLoading"
-        >
-          <ASelectOption
-            v-for="item in resourceList"
-            :key="item.key"
-            :value="item.key"
-          >
-            {{ item.name }}
-          </ASelectOption>
-        </ASelect>
+          :field-names="{ label: 'name', value: 'key' }"
+          :filter-option="filterOption"
+          show-search
+          allowClear
+          placeholder="请选择资源"
+        />
       </AFormItem>
       <AFormItem label="描述" name="description">
         <ATextarea
@@ -81,6 +70,8 @@ const visible = computed({
   set: (val: boolean) => emits('update:visible', val)
 })
 const loading = ref(false)
+const resourceList = ref<IResourceInfo[]>([])
+const resourceLoading = ref(false)
 const formRef = ref<FormInstance>()
 const formData = ref<Partial<IPowerParams>>({
   name: undefined,
@@ -145,8 +136,9 @@ const handleCancel = () => {
   visible.value = false
 }
 
-const resourceList = ref<IResourceInfo[]>([])
-const resourceLoading = ref(false)
+const filterOption = (input: string, option: IResourceInfo) => {
+  return option.name.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+}
 
 // 获取资源列表
 const fetchResourceList = async () => {
