@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build:test": "vite build --mode test",
-    "build:prod": "vite build --mode production",
     "build:release": "vite build --mode release",
+    "build": "vite build --mode production",
     "preview": "vite preview",
     "eslint": "eslint \"./src/**/*.{js,jsx,ts,tsx,vue}\"",
     "prettier": "prettier --write ./src/**/*.{js,jsx,ts,tsx,vue}"
