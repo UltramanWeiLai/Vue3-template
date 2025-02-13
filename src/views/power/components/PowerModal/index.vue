@@ -91,7 +91,8 @@ const actionOptions = [
 // 表单校验规则
 const rules = {
   name: [{ required: true, message: '请输入权限名称', trigger: 'blur' }],
-  action: [{ required: true, message: '请选择操作类型', trigger: 'change' }]
+  action: [{ required: true, message: '请选择操作类型', trigger: 'change' }],
+  resourceKey: [{ required: true, message: '请选择资源', trigger: 'change' }],
 }
 
 // 监听编辑模式
