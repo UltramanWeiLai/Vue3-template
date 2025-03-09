@@ -19,11 +19,6 @@ module.exports = {
   },
   plugins: ['vue', '@typescript-eslint', 'prettier'],
   rules: {
-    'vue/multi-word-component-names': [
-      'error',
-      {
-        ignores: ['index'],
-      },
-    ],
+    'vue/multi-word-component-names': 'off',
   },
 }

@@ -9,7 +9,7 @@ import router from '@/router'
 
 const request: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000,
+  timeout: 10000,
 })
 
 request.interceptors.request.use(

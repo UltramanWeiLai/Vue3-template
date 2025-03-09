@@ -7,11 +7,19 @@
         <h2 class="login__title">Two Dog Admin</h2>
       </div>
 
+      <!-- 注册 -->
+      <div class="login__register" v-if="isRegister && currentMode === 'login'" @click="handleSwitchMode('register')">
+        <span>注册</span>
+      </div>
+
       <!-- 表单区域 -->
       <div class="login__content">
+
         <h3 class="login__welcome">{{ welcomeText }}</h3>
 
         <LoginForm v-if="currentMode === 'login'" @switch-mode="handleSwitchMode" />
+
+        <RegisterForm v-if="currentMode === 'register'" @switch-mode="handleSwitchMode" />
 
         <RetrievePasswordForm v-if="currentMode === 'retrieve'" @switch-mode="handleSwitchMode" />
 
@@ -28,12 +36,16 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 import LoginForm from './components/LoginForm/index.vue'
+import RegisterForm from './components/RegisterForm/index.vue'
 import RetrievePasswordForm from './components/RetrievePasswordForm/index.vue'
 import ResetPasswordForm from './components/ResetPasswordForm/index.vue'
 
-type FormMode = 'login' | 'retrieve' | 'reset'
+type FormMode = 'login' | 'retrieve' | 'reset' | 'register'
 
+const route = useRoute()
+const isRegister = route.query.register === 'true'
 const currentMode = ref<FormMode>('login')
 
 const welcomeText = computed(() => {
@@ -63,6 +75,7 @@ const handleSwitchMode = (mode: FormMode) => {
   background: linear-gradient(135deg, $bg-color 0%, $bg-color-light 100%);
 
   &__container {
+    position: relative;
     width: 420px;
     padding: $spacing-extra-large;
     background-color: $bg-color;
@@ -75,6 +88,20 @@ const handleSwitchMode = (mode: FormMode) => {
     align-items: center;
     justify-content: center;
     margin-bottom: $spacing-extra-large;
+  }
+
+  &__register {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: $spacing-base;
+    color: $text-secondary;
+    font-size: $font-size-small;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-primary;
+    }
   }
 
   &__logo {
