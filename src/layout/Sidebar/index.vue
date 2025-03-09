@@ -1,13 +1,13 @@
 <template>
-  <ALayoutSider class="sider" width="224" :collapsed="collapsed" :collapsedWidth="72">
+  <ALayoutSider class="sider" width="224" :collapsed="collapsed" :collapsed-width="72">
     <div class="logo">
       <img src="../../assets/logo.png" alt="logo" />
       <h1 v-show="!collapsed">Two Dog</h1>
     </div>
     <div class="menu">
       <AMenu
-        v-model:openKeys="openKeys"
-        v-model:selectedKeys="selectedKeys"
+        v-model:open-keys="openKeys"
+        v-model:selected-keys="selectedKeys"
         mode="inline"
         :inline-collapsed="collapsed"
         :items="menuList"
@@ -37,12 +37,12 @@ const menuList = ref([
       { label: '角色管理', key: 'role', path: '/role' },
       { label: '权限管理', key: 'power', path: '/power' },
       { label: '资源管理', key: 'resource', path: '/resource' },
-      { label: '用户组管理', key: 'user-group', path: '/user-group' }
-    ]
+      { label: '用户组管理', key: 'user-group', path: '/user-group' },
+    ],
   },
 ])
 
-const handleMenuClick = (e: { key: string, item: { path: string } }) => {
+const handleMenuClick = (e: { key: string; item: { path: string } }) => {
   selectedKeys.value = [e.key]
   router.push(e.item.path)
 }

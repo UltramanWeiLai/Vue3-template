@@ -2,11 +2,11 @@
   <ALayoutHeader class="header">
     <div class="header__left">
       <div class="header__collapse">
-        <component 
-          :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined" 
-          class="header__collapse-icon" 
-          @click="handleCollapse(!collapsed)" 
-        />    
+        <component
+          :is="collapsed ? MenuUnfoldOutlined : MenuFoldOutlined"
+          class="header__collapse-icon"
+          @click="handleCollapse?.(!collapsed)"
+        />
       </div>
     </div>
     <div class="header__right">

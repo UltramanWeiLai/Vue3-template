@@ -2,27 +2,16 @@
   <AModal
     :open="visible"
     :title="editMode ? '编辑权限' : '新增权限'"
-    :confirmLoading="loading"
+    :confirm-loading="loading"
     @ok="handleSubmit"
     @cancel="handleCancel"
   >
-    <AForm
-      ref="formRef"
-      :model="formData"
-      :rules="rules"
-      :label-col="{ span: 4 }"
-      :wrapper-col="{ span: 20 }"
-    >
+    <AForm ref="formRef" :model="formData" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
       <AFormItem label="权限名称" name="name">
-        <AInput v-model:value="formData.name" placeholder="请输入权限名称" allowClear />
+        <AInput v-model:value="formData.name" placeholder="请输入权限名称" allow-clear />
       </AFormItem>
       <AFormItem label="操作类型" name="action">
-        <ASelect
-          v-model:value="formData.action"
-          :options="actionOptions"
-          allowClear
-          placeholder="请选择操作类型"
-        />
+        <ASelect v-model:value="formData.action" :options="actionOptions" allow-clear placeholder="请选择操作类型" />
       </AFormItem>
       <AFormItem label="资源" name="resourceKey">
         <ASelect
@@ -32,17 +21,12 @@
           :field-names="{ label: 'name', value: 'key' }"
           :filter-option="filterOption"
           show-search
-          allowClear
+          allow-clear
           placeholder="请选择资源"
         />
       </AFormItem>
       <AFormItem label="描述" name="description">
-        <ATextarea
-          v-model:value="formData.description"
-          placeholder="请输入权限描述"
-          :rows="4"
-          allowClear
-        />
+        <ATextarea v-model:value="formData.description" placeholder="请输入权限描述" :rows="4" allow-clear />
       </AFormItem>
     </AForm>
   </AModal>
@@ -67,7 +51,7 @@ const emits = defineEmits(['update:visible', 'success'])
 
 const visible = computed({
   get: () => props.visible,
-  set: (val: boolean) => emits('update:visible', val)
+  set: (val: boolean) => emits('update:visible', val),
 })
 const loading = ref(false)
 const resourceList = ref<IResourceInfo[]>([])
@@ -77,7 +61,7 @@ const formData = ref<Partial<IPowerParams>>({
   name: undefined,
   action: undefined,
   resourceKey: undefined,
-  description: undefined
+  description: undefined,
 })
 
 const actionOptions = [
@@ -105,7 +89,7 @@ watch(
         name: val.name,
         action: val.action,
         resourceKey: val.resourceKey,
-        description: val.description
+        description: val.description,
       }
     }
   }
@@ -138,7 +122,7 @@ const handleCancel = () => {
 }
 
 const filterOption = (input: string, option: IResourceInfo) => {
-  return option.name.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+  return option.name.toLowerCase().indexOf(input.toLowerCase()) >= 0
 }
 
 // 获取资源列表

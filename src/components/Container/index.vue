@@ -3,7 +3,7 @@
     <div class="container__header">
       <ABreadcrumb>
         <ABreadcrumbItem><HomeOutlined /></ABreadcrumbItem>
-        <ABreadcrumbItem class="f12 lh22" v-for="item in breadcrumb">{{ item }}</ABreadcrumbItem>
+        <ABreadcrumbItem class="f12 lh22" v-for="item in breadcrumb" :key="item">{{ item }}</ABreadcrumbItem>
       </ABreadcrumb>
     </div>
     <div class="container__content">
@@ -27,7 +27,6 @@ const breadcrumb = computed(() => props.breadcrumb || [])
 
 <style lang="scss" scoped>
 .container {
-
   &__header {
     display: flex;
     align-items: center;

@@ -3,8 +3,8 @@
     <APopconfirm
       v-if="props.confirmTitle"
       :title="props.confirmTitle"
-      :okText="props.confirmOkText"
-      :cancelText="props.confirmCancelText"
+      :ok-text="props.confirmOkText"
+      :cancel-text="props.confirmCancelText"
       @confirm="handleConfirm"
       @cancel="handleCancel"
     >
@@ -53,13 +53,17 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  icon: undefined,
+  text: undefined,
+  tip: undefined,
+  confirmTitle: undefined,
   type: 'default',
   size: 'middle',
   danger: false,
   loading: false,
   disabled: false,
   confirmOkText: '确定',
-  confirmCancelText: '取消'
+  confirmCancelText: '取消',
 })
 
 const emits = defineEmits(['click', 'confirm', 'cancel'])

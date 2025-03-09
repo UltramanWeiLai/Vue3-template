@@ -1,11 +1,5 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    title="分配角色"
-    @ok="handleOk"
-    @cancel="handleCancel"
-    :confirmLoading="loading"
-  >
+  <AModal v-model:open="visible" title="分配角色" @ok="handleOk" @cancel="handleCancel" :confirm-loading="loading">
     <ACheckboxGroup v-model:value="selectedRoles">
       <ASpace direction="vertical">
         <ACheckbox v-for="role in roleList" :key="role.id" :value="role.id">
@@ -69,7 +63,7 @@ const getUserGroupDetail = async (id: number) => {
 const handleOk = async () => {
   if (!props.groupId) return message.warning('逻辑异常，请联系管理员！')
   if (!selectedRoles.value.length) return message.warning('请选择角色！')
-  
+
   try {
     loading.value = true
     await assignRoles(props.groupId, selectedRoles.value)

@@ -3,7 +3,7 @@
     width="520px"
     :open="visible"
     :title="props.editMode ? '编辑用户' : '新增用户'"
-    :confirmLoading="loading"
+    :confirm-loading="loading"
     @cancel="handleCancel"
     @ok="handleSubmit"
   >
@@ -16,16 +16,16 @@
       :wrapper-col="{ span: 20 }"
     >
       <AFormItem label="用户名" name="username">
-        <AInput v-model:value="formState.username" placeholder="请输入用户名" allowClear :disabled="props.editMode" />
+        <AInput v-model:value="formState.username" placeholder="请输入用户名" allow-clear :disabled="props.editMode" />
       </AFormItem>
       <AFormItem label="昵称" name="name">
-        <AInput v-model:value="formState.name" placeholder="请输入昵称" allowClear />
+        <AInput v-model:value="formState.name" placeholder="请输入昵称" allow-clear />
       </AFormItem>
       <AFormItem label="邮箱" name="email">
-        <AInput v-model:value="formState.email" placeholder="请输入邮箱" allowClear />
+        <AInput v-model:value="formState.email" placeholder="请输入邮箱" allow-clear />
       </AFormItem>
       <AFormItem label="手机号" name="phone">
-        <AInput v-model:value="formState.phone" placeholder="请输入手机号" allowClear />
+        <AInput v-model:value="formState.phone" placeholder="请输入手机号" allow-clear />
       </AFormItem>
     </AForm>
   </AModal>
@@ -59,7 +59,7 @@ const formRef = ref<FormInstance>()
 const formState = reactive<FormState>({ username: '', name: undefined, email: undefined, phone: undefined })
 const visible = computed({
   get: () => props.visible,
-  set: (val: boolean) => emits('update:visible', val)
+  set: (val: boolean) => emits('update:visible', val),
 })
 
 const rules = {
@@ -74,7 +74,7 @@ const rules = {
 // 监听编辑模式下的用户信息变化
 watch(
   () => props.userInfo,
-  (newVal) => {
+  newVal => {
     if (newVal && props.editMode) {
       Object.assign(formState, {
         username: newVal.username || '',
@@ -128,5 +128,4 @@ const handleSubmit = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

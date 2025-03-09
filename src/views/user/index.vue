@@ -4,14 +4,14 @@
     <Box>
       <AForm :model="formState" layout="inline" class="search-form">
         <AFormItem label="用户名" name="username">
-          <AInput v-model:value="formState.username" placeholder="用户名" allowClear />
+          <AInput v-model:value="formState.username" placeholder="用户名" allow-clear />
         </AFormItem>
         <AFormItem label="昵称" name="name">
-          <AInput v-model:value="formState.name" placeholder="昵称" allowClear />
+          <AInput v-model:value="formState.name" placeholder="昵称" allow-clear />
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" @click="handleSearch">搜索</AButton>
-          <AButton class=ml12 @click="handleReset">重置</AButton>
+          <AButton class="ml12" @click="handleReset">重置</AButton>
         </AFormItem>
       </AForm>
     </Box>
@@ -40,15 +40,27 @@
           <template v-else-if="column.dataIndex === 'action'">
             <ASpace :size="0">
               <ActionButton type="link" tip="编辑" :icon="EditOutlined" @click="handleEdit(record)" />
-              <ActionButton type="link" tip="分配角色" :icon="TeamOutlined"  @click="handleAssignRole(record)" />
-              <ActionButton type="link" tip="分配用户组" :icon="UsergroupAddOutlined" @click="handleAssignGroup(record)" />
+              <ActionButton type="link" tip="分配角色" :icon="TeamOutlined" @click="handleAssignRole(record)" />
+              <ActionButton
+                type="link"
+                tip="分配用户组"
+                :icon="UsergroupAddOutlined"
+                @click="handleAssignGroup(record)"
+              />
               <ActionButton
                 type="link"
                 :tip="record.state === 1 ? '禁用' : '启用'"
                 :icon="record.state === 1 ? StopOutlined : CheckCircleOutlined"
                 @click="handleToggleState(record)"
               />
-              <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
+              <ActionButton
+                type="link"
+                tip="删除"
+                confirm-title="确定要删除该用户吗？"
+                :icon="DeleteOutlined"
+                danger
+                @click="handleDelete(record)"
+              />
             </ASpace>
           </template>
           <!-- 无数据 -->
@@ -58,18 +70,10 @@
     </Box>
 
     <!-- 分配角色弹窗 -->
-    <AssignRole
-      v-model:visible="roleVisible"
-      :user-id="currentUser?.id"
-      @success="fetchUserList"
-    />
+    <AssignRole v-model:visible="roleVisible" :user-id="currentUser?.id" @success="fetchUserList" />
 
     <!-- 分配用户组弹窗 -->
-    <AssignGroup
-      v-model:visible="groupVisible"
-      :user-id="currentUser?.id"
-      @success="fetchUserList"
-    />
+    <AssignGroup v-model:visible="groupVisible" :user-id="currentUser?.id" @success="fetchUserList" />
 
     <!-- 新增/编辑用户弹窗 -->
     <UserModal
@@ -78,14 +82,21 @@
       :user-info="currentUser"
       @success="fetchUserList"
     />
-
   </Container>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
-import { PlusOutlined, EditOutlined, DeleteOutlined, TeamOutlined, UsergroupAddOutlined, StopOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  TeamOutlined,
+  UsergroupAddOutlined,
+  StopOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons-vue'
 import { IUserInfo, queryUsers, deleteUser, enableUser, disableUser } from '@/api'
 
 import AssignRole from './components/AssignRole/index.vue'
@@ -115,7 +126,7 @@ const columns = [
   { title: '手机号', dataIndex: 'phone' },
   { title: '状态', dataIndex: 'state' },
   { title: '创建时间', dataIndex: 'createTime' },
-  { title: '操作', dataIndex: 'action', width: 180 }
+  { title: '操作', dataIndex: 'action', width: 180 },
 ]
 
 const pagination = reactive({
@@ -123,7 +134,7 @@ const pagination = reactive({
   pageSize: 10,
   total: 0,
   showSizeChanger: true,
-  showQuickJumper: true
+  showQuickJumper: true,
 })
 
 onMounted(() => {
@@ -169,7 +180,7 @@ const handleReset = () => {
   fetchUserList()
 }
 
-const handleTableChange = (pag: any) => {
+const handleTableChange = (pag: { current: number; pageSize: number }) => {
   pagination.current = pag.current
   pagination.pageSize = pag.pageSize
   fetchUserList()

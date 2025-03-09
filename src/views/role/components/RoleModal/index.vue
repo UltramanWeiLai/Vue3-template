@@ -1,16 +1,6 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    :title="editMode ? '编辑角色' : '新增角色'"
-    @ok="handleOk"
-  >
-    <AForm
-      ref="formRef"
-      :model="formState"
-      :rules="rules"
-      :label-col="{ span: 4 }"
-      :wrapper-col="{ span: 18 }"
-    >
+  <AModal v-model:open="visible" :title="editMode ? '编辑角色' : '新增角色'" @ok="handleOk">
+    <AForm ref="formRef" :model="formState" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 18 }">
       <AFormItem label="角色名称" name="name">
         <AInput v-model:value="formState.name" placeholder="请输入角色名称" />
       </AFormItem>

@@ -3,28 +3,19 @@
     <div class="login__container">
       <!-- Logo区域 -->
       <div class="login__header">
-        <img src="@/assets/logo.png" alt="logo" class="login__logo">
+        <img src="@/assets/logo.png" alt="logo" class="login__logo" />
         <h2 class="login__title">Two Dog Admin</h2>
       </div>
 
       <!-- 表单区域 -->
       <div class="login__content">
         <h3 class="login__welcome">{{ welcomeText }}</h3>
-        
-        <LoginForm
-          v-if="currentMode === 'login'"
-          @switch-mode="handleSwitchMode"
-        />
 
-        <RetrievePasswordForm
-          v-if="currentMode === 'retrieve'"
-          @switch-mode="handleSwitchMode"
-        />
+        <LoginForm v-if="currentMode === 'login'" @switch-mode="handleSwitchMode" />
 
-        <ResetPasswordForm
-          v-if="currentMode === 'reset'"
-          @switch-mode="handleSwitchMode"
-        />
+        <RetrievePasswordForm v-if="currentMode === 'retrieve'" @switch-mode="handleSwitchMode" />
+
+        <ResetPasswordForm v-if="currentMode === 'reset'" @switch-mode="handleSwitchMode" />
       </div>
 
       <!-- 页脚 -->

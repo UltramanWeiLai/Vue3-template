@@ -8,7 +8,7 @@
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" :loading="loading" @click="fetchPowerList">查询</AButton>
-          <AButton class=ml12 @click="handleReset">重置</AButton>
+          <AButton class="ml12" @click="handleReset">重置</AButton>
         </AFormItem>
       </AForm>
     </Box>
@@ -21,12 +21,12 @@
         </AButton>
       </div>
       <ATable
+        row-key="id"
         :columns="columns"
         :data-source="powerList"
         :loading="loading"
         :pagination="pagination"
         @change="handleTableChange"
-        rowKey="id"
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.dataIndex === 'state'">
@@ -46,7 +46,14 @@
                 :icon="record.state === 1 ? StopOutlined : CheckCircleOutlined"
                 @click="handleToggleState(record)"
               />
-              <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
+              <ActionButton
+                type="link"
+                tip="删除"
+                confirm-title="确定要删除该用户吗？"
+                danger
+                :icon="DeleteOutlined"
+                @click="handleDelete(record)"
+              />
             </ASpace>
           </template>
           <template v-else>{{ record[column.dataIndex] || '-' }}</template>
@@ -85,7 +92,7 @@ const columns = [
   { title: '创建时间', dataIndex: 'createTime' },
   { title: '更新人', dataIndex: 'update' },
   { title: '更新时间', dataIndex: 'updateTime' },
-  { title: '操作', dataIndex: 'operate', width: 130 }
+  { title: '操作', dataIndex: 'operate', width: 130 },
 ]
 
 const loading = ref(false)
@@ -95,7 +102,7 @@ const pagination = reactive({
   current: 1,
   pageSize: 10,
   total: 0,
-  showTotal: (total: number) => `共 ${total} 条`
+  showTotal: (total: number) => `共 ${total} 条`,
 })
 
 // 表单状态
@@ -161,7 +168,7 @@ const fetchPowerList = async () => {
     const { data } = await queryPowers({
       name: searchForm.name,
       currPage: pagination.current,
-      pageSize: pagination.pageSize
+      pageSize: pagination.pageSize,
     })
     powerList.value = data.data
     pagination.total = data.total

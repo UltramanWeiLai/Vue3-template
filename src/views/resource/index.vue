@@ -4,7 +4,7 @@
     <Box>
       <AForm :model="formState" layout="inline" class="search-form">
         <AFormItem label="资源名称" name="name">
-          <AInput v-model:value="formState.name" placeholder="资源名称" allowClear />
+          <AInput v-model:value="formState.name" placeholder="资源名称" allow-clear />
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" @click="handleSearch">搜索</AButton>
@@ -46,7 +46,14 @@
                 :icon="record.state === 1 ? StopOutlined : CheckCircleOutlined"
                 @click="handleToggleState(record)"
               />
-              <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
+              <ActionButton
+                type="link"
+                tip="删除"
+                confirm-title="确定要删除该用户吗？"
+                :icon="DeleteOutlined"
+                danger
+                @click="handleDelete(record)"
+              />
             </ASpace>
           </template>
           <template v-else>{{ record[column.dataIndex] || '-' }}</template>
@@ -76,7 +83,7 @@ import ResourceForm from './components/ResourceModal/index.vue'
 
 // 表单状态
 const formState = reactive({
-  name: undefined
+  name: undefined,
 })
 
 // 表格相关
@@ -92,7 +99,7 @@ const columns = [
   { title: '创建时间', dataIndex: 'createTime' },
   { title: '更新人', dataIndex: 'update' },
   { title: '更新时间', dataIndex: 'updateTime' },
-  { title: '操作', dataIndex: 'action', width: 130 }
+  { title: '操作', dataIndex: 'action', width: 130 },
 ]
 
 const pagination = reactive({
@@ -100,7 +107,7 @@ const pagination = reactive({
   pageSize: 10,
   total: 0,
   showSizeChanger: true,
-  showQuickJumper: true
+  showQuickJumper: true,
 })
 
 // 资源表单相关
@@ -118,7 +125,7 @@ const fetchResourceList = async () => {
     const { data } = await queryResources({
       currPage: pagination.current,
       pageSize: pagination.pageSize,
-      name: formState.name
+      name: formState.name,
     })
     dataSource.value = data.data
     pagination.total = data.total
@@ -140,7 +147,7 @@ const handleReset = () => {
 }
 
 // 表格变化
-const handleTableChange = ({ current, pageSize }: any) => {
+const handleTableChange = ({ current, pageSize }: { current: number; pageSize: number }) => {
   pagination.current = current
   pagination.pageSize = pageSize
   fetchResourceList()

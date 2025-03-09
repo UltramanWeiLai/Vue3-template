@@ -45,7 +45,7 @@
           </ATimeline>
         </Box>
       </div>
-      
+
       <div class="home__dashboard">
         <Box class="dashboard-box" v-for="card in quickAccess" :key="card.title">
           <div class="dashboard-card" @click="handleCardClick(card)">
@@ -69,7 +69,7 @@ import {
   SettingOutlined,
   TeamOutlined,
   HistoryOutlined,
-  InfoCircleOutlined
+  InfoCircleOutlined,
 } from '@ant-design/icons-vue'
 import { useUserStore } from '@/store/user'
 import type { IUserInfo } from '@/api'
@@ -125,26 +125,6 @@ const initVisitHistory = () => {
   }
 }
 
-// 添加访问记录
-const addVisitHistory = (path: string, title: string) => {
-  const timestamp = Date.now()
-  const newRecord = { path, title, timestamp }
-  
-  // 移除重复的记录
-  visitHistory.value = visitHistory.value.filter(item => item.path !== path)
-  
-  // 添加新记录到开头
-  visitHistory.value.unshift(newRecord)
-  
-  // 只保留最近5条记录
-  if (visitHistory.value.length > 5) {
-    visitHistory.value = visitHistory.value.slice(0, 5)
-  }
-  
-  // 保存到localStorage
-  localStorage.setItem('visitHistory', JSON.stringify(visitHistory.value))
-}
-
 // 初始化
 initVisitHistory()
 
@@ -153,36 +133,37 @@ const quickAccess = [
     title: '项目管理',
     description: '查看和管理您的项目',
     icon: ProjectOutlined,
-    path: '/projects'
+    path: '/projects',
   },
   {
     title: '消息中心',
     description: '查看您的消息和通知',
     icon: MessageOutlined,
-    path: '/messages'
+    path: '/messages',
   },
   {
     title: '团队协作',
     description: '与团队成员协作',
     icon: TeamOutlined,
-    path: '/team'
+    path: '/team',
   },
   {
     title: '系统设置',
     description: '个性化您的工作台',
     icon: SettingOutlined,
-    path: '/settings'
-  }
+    path: '/settings',
+  },
 ]
 
-const handleCardClick = (card: typeof quickAccess[0]) => {
+const handleCardClick = (card: (typeof quickAccess)[0]) => {
   router.push(card.path)
 }
 </script>
 
 <style lang="scss" scoped>
 .home {
-  &__welcome, &__history {
+  &__welcome,
+  &__history {
     margin-bottom: $spacing-large;
 
     .welcome-box {

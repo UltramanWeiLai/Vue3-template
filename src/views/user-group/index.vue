@@ -4,7 +4,7 @@
     <Box>
       <AForm :model="formState" layout="inline" class="search-form">
         <AFormItem label="用户组名称" name="name">
-          <AInput v-model:value="formState.name" placeholder="用户组名称" allowClear />
+          <AInput v-model:value="formState.name" placeholder="用户组名称" allow-clear />
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" @click="handleSearch">搜索</AButton>
@@ -45,7 +45,14 @@
                 :icon="record.state === 1 ? StopOutlined : CheckCircleOutlined"
                 @click="handleToggleState(record)"
               />
-              <ActionButton type="link" tip="删除" confirmTitle="确定要删除该用户组吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
+              <ActionButton
+                type="link"
+                tip="删除"
+                confirm-title="确定要删除该用户组吗？"
+                :icon="DeleteOutlined"
+                danger
+                @click="handleDelete(record)"
+              />
             </ASpace>
           </template>
           <!-- 无数据 -->
@@ -63,26 +70,25 @@
     />
 
     <!-- 分配用户弹窗 -->
-    <AssignUser
-      v-model:visible="userVisible"
-      :group-id="currentUserGroup?.id"
-      @success="fetchUserGroupList"
-    />
+    <AssignUser v-model:visible="userVisible" :group-id="currentUserGroup?.id" @success="fetchUserGroupList" />
 
     <!-- 分配角色弹窗 -->
-    <AssignRole
-      v-model:visible="roleVisible"
-      :group-id="currentUserGroup?.id"
-      @success="fetchUserGroupList"
-    />
-
+    <AssignRole v-model:visible="roleVisible" :group-id="currentUserGroup?.id" @success="fetchUserGroupList" />
   </Container>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
-import { PlusOutlined, EditOutlined, DeleteOutlined, TeamOutlined, UsergroupAddOutlined, StopOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  TeamOutlined,
+  UsergroupAddOutlined,
+  StopOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons-vue'
 import { IUserGroupInfo, queryUserGroups, deleteUserGroup, enableUserGroup, disableUserGroup } from '@/api'
 
 import UserGroupModal from './components/UserGroupModal/index.vue'
@@ -109,7 +115,7 @@ const columns = [
   { title: '描述', dataIndex: 'description' },
   { title: '状态', dataIndex: 'state' },
   { title: '创建时间', dataIndex: 'createTime' },
-  { title: '操作', dataIndex: 'action', width: 140 }
+  { title: '操作', dataIndex: 'action', width: 140 },
 ]
 
 const pagination = reactive({
@@ -117,7 +123,7 @@ const pagination = reactive({
   pageSize: 10,
   total: 0,
   showSizeChanger: true,
-  showQuickJumper: true
+  showQuickJumper: true,
 })
 
 onMounted(() => {
@@ -148,7 +154,7 @@ const handleReset = () => {
   fetchUserGroupList()
 }
 
-const handleTableChange = (pag: any) => {
+const handleTableChange = (pag: { current: number; pageSize: number }) => {
   pagination.current = pag.current
   pagination.pageSize = pag.pageSize
   fetchUserGroupList()

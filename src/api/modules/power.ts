@@ -69,5 +69,3 @@ export async function enablePower(id: number) {
 export async function disablePower(id: number) {
   return request.patch<IRes>(`/api/power/disable/${id}`)
 }
-
-

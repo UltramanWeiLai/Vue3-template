@@ -9,16 +9,16 @@ import router from '@/router'
 
 const request: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000
+  timeout: 5000,
 })
 
 request.interceptors.request.use(
-  (config) => {
+  config => {
     const userStore = useUserStore()
     if (userStore.token) config.headers['Token'] = `Bearer ${userStore.token}`
     return config
   },
-  (error) => {
+  error => {
     return Promise.reject(error)
   }
 )
@@ -38,8 +38,8 @@ request.interceptors.response.use(
     }
     return response.data
   },
-  (error) => {
-    const res = error.response?.data as unknown as IRes || { msg: error.message || '服务器繁忙，请稍后重试！' }
+  error => {
+    const res = (error.response?.data as unknown as IRes) || { msg: error.message || '服务器繁忙，请稍后重试！' }
     message.error(res.msg)
     return Promise.reject(res)
   }
@@ -54,19 +54,19 @@ class ApiRequest {
     return this.instance
   }
 
-  get<T>(url: string, config?: AxiosRequestConfig){
+  get<T>(url: string, config?: AxiosRequestConfig) {
     return this.request.get<T>(url, config) as unknown as Promise<T>
   }
 
-  post<T>(url: string, data?: any, config?: AxiosRequestConfig){
+  post<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
     return this.request.post<T>(url, data, config) as unknown as Promise<T>
   }
 
-  patch<T>(url: string, data?: any, config?: AxiosRequestConfig){
+  patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
     return this.request.patch<T>(url, data, config) as unknown as Promise<T>
   }
 
-  delete<T>(url: string, config?: AxiosRequestConfig){
+  delete<T>(url: string, config?: AxiosRequestConfig) {
     return this.request.delete<T>(url, config) as unknown as Promise<T>
   }
 }

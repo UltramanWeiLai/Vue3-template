@@ -13,4 +13,3 @@ dayjs.locale('zh-cn')
 
 const locale = ref(zhCN)
 </script>
-

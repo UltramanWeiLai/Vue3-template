@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { UserOutlined, LogoutOutlined, DownOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
@@ -43,10 +43,7 @@ const router = useRouter()
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo as IUserInfo)
 
-const arrowFlag = ref(false)
-
-const handleUserConfigClick = () => {
-}
+const handleUserConfigClick = () => {}
 
 // 退出登录
 const handleLogoutClick = () => {

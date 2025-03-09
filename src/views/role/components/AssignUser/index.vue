@@ -4,7 +4,7 @@
     title="分配用户"
     @ok="handleOk"
     @cancel="handleCancel"
-    :confirmLoading="loading"
+    :confirm-loading="loading"
     width="800px"
   >
     <AAlert type="warning" message="此处只显示和角色拥有直接关系的用户，不包括用户组的！" />
@@ -17,18 +17,16 @@
         :pagination="false"
         :row-selection="rowSelection"
         class="user-table mt20"
-        rowKey="id"
+        row-key="id"
       />
     </ASpin>
   </AModal>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { queryUsers, getRoleInfo, setRoleUsers } from '@/api'
-
-import type { TablePaginationConfig } from 'ant-design-vue'
 import type { IUserInfo } from '@/api'
 
 interface IProps {
@@ -49,7 +47,7 @@ const columns = [
   { title: '用户名', dataIndex: 'username' },
   { title: '昵称', dataIndex: 'name' },
   { title: '邮箱', dataIndex: 'email' },
-  { title: '手机号', dataIndex: 'phone' }
+  { title: '手机号', dataIndex: 'phone' },
 ]
 
 // 表格数据
@@ -62,7 +60,7 @@ const rowSelection = computed(() => ({
   selectedRowKeys: selectedRowKeys.value,
   onChange: (keys: number[]) => {
     selectedRowKeys.value = keys
-  }
+  },
 }))
 
 onMounted(() => {
@@ -72,7 +70,7 @@ onMounted(() => {
 // 监听visible变化
 watch(
   () => props.visible,
-  (val) => {
+  val => {
     if (val && props.roleId) getRoleDetail(props.roleId)
   }
 )
@@ -102,7 +100,7 @@ const fetchUserList = async () => {
 // 确认
 const handleOk = async () => {
   if (!props.roleId) return message.warning('逻辑错误，请联系管理员！')
-  
+
   try {
     loading.value = true
     await setRoleUsers(props.roleId, selectedRowKeys.value)

@@ -1,11 +1,5 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    title="分配角色"
-    @ok="handleOk"
-    @cancel="handleCancel"
-    :confirmLoading="loading"
-  >
+  <AModal v-model:open="visible" title="分配角色" @ok="handleOk" @cancel="handleCancel" :confirm-loading="loading">
     <ASpin :spinning="loading">
       <div class="role-section">
         <div class="section-title">
@@ -34,7 +28,6 @@
           </ATooltip>
           <div v-if="!groupRoles.length" class="no-roles">暂无用户组角色</div>
         </div>
-
       </div>
     </ASpin>
   </AModal>
@@ -114,7 +107,6 @@ const handleCancel = () => {
 }
 </script>
 <style lang="scss" scoped>
-
 .role-section {
   .section-title {
     display: flex;

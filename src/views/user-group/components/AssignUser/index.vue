@@ -1,11 +1,5 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    title="分配用户"
-    @ok="handleOk"
-    @cancel="handleCancel"
-    :confirmLoading="loading"
-  >
+  <AModal v-model:open="visible" title="分配用户" @ok="handleOk" @cancel="handleCancel" :confirm-loading="loading">
     <ACheckboxGroup v-model:value="selectedUsers">
       <ASpace direction="vertical">
         <ACheckbox v-for="user in userList" :key="user.id" :value="user.id">
@@ -20,7 +14,6 @@
 import { ref, computed, onMounted, watchEffect } from 'vue'
 import { message } from 'ant-design-vue'
 import { IUserInfo, queryUsers, assignUsers, getUserGroupInfo } from '@/api'
-
 
 interface Props {
   visible: boolean
@@ -70,7 +63,7 @@ const getUserGroupDetail = async (id: number) => {
 const handleOk = async () => {
   if (!props.groupId) return message.warning('逻辑异常，请联系管理员！')
   if (!selectedUsers.value.length) return message.warning('请选择用户组！')
-  
+
   try {
     loading.value = true
     await assignUsers(props.groupId, selectedUsers.value)

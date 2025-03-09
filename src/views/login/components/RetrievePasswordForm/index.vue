@@ -1,11 +1,7 @@
 <template>
   <AForm class="retrieve-form" :model="formState" :rules="rules" @finish="handleFinish">
     <AFormItem name="email">
-      <AInput
-        v-model:value="formState.email"
-        placeholder="请输入注册邮箱"
-        size="large"
-      >
+      <AInput v-model:value="formState.email" placeholder="请输入注册邮箱" size="large">
         <template #prefix>
           <MailOutlined class="form-icon" />
         </template>
@@ -13,39 +9,21 @@
     </AFormItem>
 
     <AFormItem name="code" class="form-code">
-      <AInput
-        v-model:value="formState.code"
-        placeholder="请输入验证码"
-        size="large"
-      >
+      <AInput v-model:value="formState.code" placeholder="请输入验证码" size="large">
         <template #prefix>
           <SafetyCertificateOutlined class="form-icon" />
         </template>
       </AInput>
-      <AButton
-        type="primary"
-        :disabled="!!countdown"
-        @click="handleSendCode"
-      >
+      <AButton type="primary" :disabled="!!countdown" @click="handleSendCode">
         {{ countdown ? `${countdown}s后重试` : '获取验证码' }}
       </AButton>
     </AFormItem>
 
     <div class="form-options">
-      <AButton type="link" class="form-back" @click="$emit('switchMode', 'login')">
-        返回登录
-      </AButton>
+      <AButton type="link" class="form-back" @click="emits('switchMode', 'login')"> 返回登录 </AButton>
     </div>
 
-    <AButton
-      type="primary"
-      html-type="submit"
-      size="large"
-      class="form-submit"
-      :loading="loading"
-    >
-      下一步
-    </AButton>
+    <AButton type="primary" html-type="submit" size="large" class="form-submit" :loading="loading"> 下一步 </AButton>
   </AForm>
 </template>
 
@@ -67,18 +45,18 @@ let timer: number | null = null
 
 const formState = reactive<FormState>({
   email: '',
-  code: ''
+  code: '',
 })
 
 const rules = {
   email: [
     { required: true, message: '请输入邮箱' },
-    { type: 'email', message: '请输入正确的邮箱格式' }
+    { type: 'email', message: '请输入正确的邮箱格式' },
   ],
   code: [
     { required: true, message: '请输入验证码' },
-    { len: 6, message: '验证码长度为6位' }
-  ]
+    { len: 6, message: '验证码长度为6位' },
+  ],
 }
 
 const startCountdown = () => {
@@ -162,7 +140,7 @@ onUnmounted(() => {
   &-back {
     padding: 0;
     color: $text-secondary;
-    
+
     &:hover {
       color: $text-primary;
     }

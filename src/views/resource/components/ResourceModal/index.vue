@@ -2,7 +2,7 @@
   <AModal
     :open="visible"
     :title="editMode ? '编辑资源' : '新增资源'"
-    :confirmLoading="confirmLoading"
+    :confirm-loading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
   >
@@ -10,7 +10,7 @@
       ref="formRef"
       :model="formState"
       :rules="rules"
-      labelAlign="right"
+      label-align="right"
       :label-col="{ span: 6 }"
       :wrapper-col="{ span: 16 }"
     >
@@ -54,12 +54,12 @@ const visible = computed({
 const rules = {
   name: [
     { required: true, message: '请输入资源名称', trigger: 'blur' },
-    { min: 2, max: 50, message: '长度在 2 到 64 个字符', trigger: 'blur' }
+    { min: 2, max: 50, message: '长度在 2 到 64 个字符', trigger: 'blur' },
   ],
   key: [
     { required: true, message: '请输入资源 Key', trigger: 'blur' },
-    { min: 2, max: 50, message: '长度在 2 到 128 个字符', trigger: 'blur' }
-  ]
+    { min: 2, max: 50, message: '长度在 2 到 128 个字符', trigger: 'blur' },
+  ],
 }
 
 // 监听编辑模式下的资源信息变化

@@ -4,7 +4,7 @@
     title="分配用户组"
     @ok="handleOk"
     @cancel="handleCancel"
-    :confirmLoading="loading"
+    :confirm-loading="loading"
     width="800px"
   >
     <ASpin :spinning="loading">
@@ -95,5 +95,4 @@ const handleCancel = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

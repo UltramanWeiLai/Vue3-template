@@ -4,11 +4,11 @@
     <Box>
       <AForm :model="formState" layout="inline" class="search-form">
         <AFormItem label="角色名称" name="name">
-          <AInput v-model:value="formState.name" placeholder="角色名称" allowClear />
+          <AInput v-model:value="formState.name" placeholder="角色名称" allow-clear />
         </AFormItem>
         <AFormItem class="search-buttons">
           <AButton type="primary" @click="handleSearch">搜索</AButton>
-          <AButton class="ml12"@click="handleReset">重置</AButton>
+          <AButton class="ml12" @click="handleReset">重置</AButton>
         </AFormItem>
       </AForm>
     </Box>
@@ -42,14 +42,26 @@
               <ActionButton type="link" tip="编辑" :icon="EditOutlined" @click="handleEdit(record)" />
               <ActionButton type="link" tip="分配权限" :icon="ControlOutlined" @click="handleAssignPower(record)" />
               <ActionButton type="link" tip="分配用户" :icon="UserOutlined" @click="handleAssignUser(record)" />
-              <ActionButton type="link" tip="分配用户组" :icon="UsergroupAddOutlined" @click="handleAssignUserGroup(record)" />
+              <ActionButton
+                type="link"
+                tip="分配用户组"
+                :icon="UsergroupAddOutlined"
+                @click="handleAssignUserGroup(record)"
+              />
               <ActionButton
                 type="link"
                 :tip="record.state === 1 ? '禁用' : '启用'"
                 :icon="record.state === 1 ? StopOutlined : CheckCircleOutlined"
                 @click="handleToggleStatus(record)"
               />
-              <ActionButton type="link" tip="删除" confirmTitle="确定要删除该角色吗？" :icon="DeleteOutlined" danger @click="handleDelete(record)" />
+              <ActionButton
+                type="link"
+                tip="删除"
+                confirm-title="确定要删除该角色吗？"
+                :icon="DeleteOutlined"
+                danger
+                @click="handleDelete(record)"
+              />
             </ASpace>
           </template>
           <!-- 无数据 -->
@@ -67,33 +79,29 @@
     />
 
     <!-- 权限分配弹窗 -->
-    <AssignPower
-      v-model:visible="powerVisible"
-      :role-id="currentRole?.id"
-      @success="fetchRoleList"
-    />
+    <AssignPower v-model:visible="powerVisible" :role-id="currentRole?.id" @success="fetchRoleList" />
 
     <!-- 用户分配弹窗 -->
-    <AssignUser
-      v-model:visible="userVisible"
-      :role-id="currentRole?.id"
-      @success="fetchRoleList"
-    />
+    <AssignUser v-model:visible="userVisible" :role-id="currentRole?.id" @success="fetchRoleList" />
 
     <!-- 用户组分配弹窗 -->
-    <AssignUserGroup
-      v-model:visible="userGroupVisible"
-      :role-id="currentRole?.id"
-      @success="fetchRoleList"
-    />
-
+    <AssignUserGroup v-model:visible="userGroupVisible" :role-id="currentRole?.id" @success="fetchRoleList" />
   </Container>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
 import { message } from 'ant-design-vue'
-import { PlusOutlined, EditOutlined, DeleteOutlined, ControlOutlined, StopOutlined, CheckCircleOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons-vue'
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  ControlOutlined,
+  StopOutlined,
+  CheckCircleOutlined,
+  UserOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons-vue'
 import { IRoleInfo, queryRoles, deleteRole, enableRole, disableRole } from '@/api'
 import { formatTime } from '@/utils'
 
@@ -126,7 +134,7 @@ const columns = [
   { title: '创建时间', dataIndex: 'createTime' },
   { title: '更新人', dataIndex: 'update' },
   { title: '更新时间', dataIndex: 'updateTime' },
-  { title: '操作', dataIndex: 'action', width: 140 }
+  { title: '操作', dataIndex: 'action', width: 140 },
 ]
 
 const pagination = reactive({
@@ -134,7 +142,7 @@ const pagination = reactive({
   pageSize: 10,
   total: 0,
   showSizeChanger: true,
-  showQuickJumper: true
+  showQuickJumper: true,
 })
 
 onMounted(() => {
@@ -154,7 +162,7 @@ const fetchRoleList = async () => {
   }
 }
 
-const handleTableChange = (pag: any) => {
+const handleTableChange = (pag: { current: number; pageSize: number }) => {
   pagination.current = pag.current
   pagination.pageSize = pag.pageSize
   fetchRoleList()

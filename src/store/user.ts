@@ -10,15 +10,15 @@ interface IUserState {
 }
 
 export const useUserStore = defineStore('user', {
-  state: ():IUserState => ({
+  state: (): IUserState => ({
     userInfo: cache.get(USER_INFO_KEY),
-    token: cache.get(TOKEN_KEY)
+    token: cache.get(TOKEN_KEY),
   }),
   getters: {
-    isLoggedIn: (state) => !!state.token
+    isLoggedIn: state => !!state.token,
   },
   actions: {
-    setUserInfo(userInfo: any) {
+    setUserInfo(userInfo: IUserInfo) {
       this.userInfo = userInfo
       cache.set(USER_INFO_KEY, userInfo)
     },
@@ -31,6 +31,6 @@ export const useUserStore = defineStore('user', {
       this.token = undefined
       cache.delete(USER_INFO_KEY)
       cache.delete(TOKEN_KEY)
-    }
-  }
+    },
+  },
 })

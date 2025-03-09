@@ -1,16 +1,6 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    title="分配权限"
-    @ok="handleOk"
-    @cancel="handleCancel"
-  >
-    <ATree
-      v-model:checkedKeys="checkedKeys"
-      :tree-data="powerTree"
-      checkable
-      :defaultExpandAll="true"
-    />
+  <AModal v-model:open="visible" title="分配权限" @ok="handleOk" @cancel="handleCancel">
+    <ATree v-model:checked-keys="checkedKeys" :tree-data="powerTree" checkable :default-expand-all="true" />
   </AModal>
 </template>
 
@@ -36,7 +26,7 @@ const powerTree = ref([])
 
 const handleOk = async () => {
   if (!props.roleId) return
-  
+
   try {
     await setRolePowers(props.roleId, checkedKeys.value)
     message.success('分配权限成功')

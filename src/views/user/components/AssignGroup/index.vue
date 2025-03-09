@@ -1,11 +1,5 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    title="分配用户组"
-    @ok="handleOk"
-    @cancel="handleCancel"
-    :confirmLoading="loading"
-  >
+  <AModal v-model:open="visible" title="分配用户组" @ok="handleOk" @cancel="handleCancel" :confirm-loading="loading">
     <ASpin :spinning="loading">
       <ACheckboxGroup v-model:value="selectedGroups">
         <ASpace direction="vertical">
@@ -21,7 +15,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watchEffect } from 'vue'
 import { message } from 'ant-design-vue'
-import { queryUserGroups, assignUsers, IUserGroupInfo, getUserInfo, setUserGroups } from '@/api'
+import { queryUserGroups, IUserGroupInfo, getUserInfo, setUserGroups } from '@/api'
 
 interface Props {
   visible: boolean

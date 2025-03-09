@@ -11,10 +11,10 @@ interface ILoginParams {
 
 export interface IUserInfo {
   id: number
-  name?: string;
-  email?: string;
-  phone?: string;
-  avatar?: string;
+  name?: string
+  email?: string
+  phone?: string
+  avatar?: string
   username: string
   state: number
   feishu?: string
@@ -51,10 +51,10 @@ export async function getUserInfo(id: number) {
 }
 
 export interface IUpdateUserParams {
-  name?: string;
-  email?: string;
-  phone?: string;
-  avatar?: string;
+  name?: string
+  email?: string
+  phone?: string
+  avatar?: string
 }
 
 export async function updateUser(id: number, params: IUpdateUserParams) {
@@ -93,4 +93,3 @@ export interface IQueryUsersParams extends IPage {
 export async function queryUsers(params: IQueryUsersParams) {
   return request.get<IRes<IResList<IUserInfo>>>('/api/user', { params })
 }
-

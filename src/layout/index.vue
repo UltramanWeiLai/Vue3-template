@@ -2,7 +2,7 @@
   <ALayout class="layout">
     <Sidebar />
     <ALayout>
-     <Header />
+      <Header />
       <Main />
     </ALayout>
   </ALayout>

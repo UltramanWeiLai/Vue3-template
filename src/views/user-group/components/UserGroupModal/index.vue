@@ -1,16 +1,6 @@
 <template>
-  <AModal
-    v-model:open="visible"
-    :title="editMode ? '编辑用户组' : '新增用户组'"
-    @ok="handleOk"
-  >
-    <AForm
-      ref="formRef"
-      :model="formState"
-      :rules="rules"
-      :label-col="{ span: 4 }"
-      :wrapper-col="{ span: 20 }"
-    >
+  <AModal v-model:open="visible" :title="editMode ? '编辑用户组' : '新增用户组'" @ok="handleOk">
+    <AForm ref="formRef" :model="formState" :rules="rules" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
       <AFormItem label="用户组" name="name">
         <AInput v-model:value="formState.name" placeholder="请输入用户组名称" />
       </AFormItem>

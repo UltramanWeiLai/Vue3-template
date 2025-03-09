@@ -1,11 +1,7 @@
 <template>
   <AForm class="reset-form" :model="formState" :rules="rules" @finish="handleFinish">
     <AFormItem name="password">
-      <AInputPassword
-        v-model:value="formState.password"
-        placeholder="请输入新密码"
-        size="large"
-      >
+      <AInputPassword v-model:value="formState.password" placeholder="请输入新密码" size="large">
         <template #prefix>
           <LockOutlined class="form-icon" />
         </template>
@@ -13,11 +9,7 @@
     </AFormItem>
 
     <AFormItem name="confirmPassword">
-      <AInputPassword
-        v-model:value="formState.confirmPassword"
-        placeholder="请确认新密码"
-        size="large"
-      >
+      <AInputPassword v-model:value="formState.confirmPassword" placeholder="请确认新密码" size="large">
         <template #prefix>
           <LockOutlined class="form-icon" />
         </template>
@@ -25,20 +17,10 @@
     </AFormItem>
 
     <div class="form-options">
-      <AButton type="link" class="form-back" @click="$emit('switchMode', 'login')">
-        返回登录
-      </AButton>
+      <AButton type="link" class="form-back" @click="emits('switchMode', 'login')"> 返回登录 </AButton>
     </div>
 
-    <AButton
-      type="primary"
-      html-type="submit"
-      size="large"
-      class="form-submit"
-      :loading="loading"
-    >
-      确认修改
-    </AButton>
+    <AButton type="primary" html-type="submit" size="large" class="form-submit" :loading="loading"> 确认修改 </AButton>
   </AForm>
 </template>
 
@@ -58,7 +40,7 @@ const loading = ref(false)
 
 const formState = reactive<FormState>({
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
 })
 
 const validateConfirmPassword = async (_rule: any, value: string) => {
@@ -74,9 +56,9 @@ const validateConfirmPassword = async (_rule: any, value: string) => {
 const rules = {
   password: [
     { required: true, message: '请输入新密码' },
-    { min: 6, message: '密码长度不能小于6位' }
+    { min: 6, message: '密码长度不能小于6位' },
   ],
-  confirmPassword: [{ validator: validateConfirmPassword }]
+  confirmPassword: [{ validator: validateConfirmPassword }],
 }
 
 const handleFinish = async (values: FormState) => {
@@ -115,7 +97,7 @@ const handleFinish = async (values: FormState) => {
   &-back {
     padding: 0;
     color: $text-secondary;
-    
+
     &:hover {
       color: $text-primary;
     }
